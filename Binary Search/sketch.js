@@ -38,17 +38,15 @@ function createDescription(){
   rect(width/2 - 20,75,50,50);
   fill(255)
   text(check,width/2,100);  
-  createDesBox(createVector(50,height/3),color(255,0,0),"=>Element can't be present here");
-  createDesBox(createVector(50,height/3 + 70),color(0,255,0),"=>Element found at this index");
-  createDesBox(createVector(50,height/3 + 140),color(0,0,255),"=> Our Search Space");
-  createDesBox(createVector(50,height/3 + 210),color(100,0,100),"=> Current Element");
-
-
+  createDesBox(createVector(50,height/3),color(255,0,0),": Element can't be present here");
+  createDesBox(createVector(50,height/3 + 70),color(0,255,0),": Element found at this index");
+  createDesBox(createVector(50,height/3 + 140),color(0,0,255),": Our Search Space");
+  createDesBox(createVector(50,height/3 + 210),color(100,0,100),": Current Element");
 }
 
 function createDesBox(pos,color,text){
   fill(color);
-  rect(pos.x,pos.y,50,50);
+  rect(pos.x,pos.y,40,40);
   createElement('h3',text).position(pos.x + 70,pos.y);
 }
 
