@@ -21,6 +21,9 @@ class Vertex {
         if(this.visited){
             fill(100,0,0);
         }
+        if(this.open){
+            fill(0,100,0);
+        }
         if(this.selected){
             fill(100,0,100);
         }
