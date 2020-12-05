@@ -4,18 +4,20 @@ var counter = 0;
 var sel;
 var start;
 var stack = [];
+var current;
 function setup() {
   createCanvas(1000, 1000)
   counter = 0;
   sel = undefined;
   var button = createButton("Start DFS");
   var resetButton = createButton("Reset");
-
+  current = undefined;
   start = false;
   button.mousePressed(() => {
     if (vertices.length == 0 || start) return;
     start = true;
     stack = [vertices[0]];
+    current = vertices[0];
   });
 
   resetButton.mousePressed(() => {
@@ -23,6 +25,7 @@ function setup() {
     vertices = [];
     stack = [];
     sel = undefined;
+    current = undefined;
     counter = 0;
   });
 }
@@ -30,27 +33,24 @@ function setup() {
 function draw() {
   var cur;
   if (start) {
-    if (stack.length === 0) {
+      if(!current){
       return;
     }
-    cur = stack.pop();
-    if (cur.visited) {
-      if (cur.parent) {
-        cur = cur.parent;
-        cur.selected = true;
-
+    cur = current;
+    current.visited = true;
+    current.selected = true;
+    var next;
+    for(var i=0;i<current.adj.length;i++){
+      if(!current.adj[i].visited){
+        next = current.adj[i];
+        next.par = current;
+        break;
       }
     }
-    else
-    {
-      cur.visited = true;
-      cur.selected = true;
-      cur.adj.forEach((e) => {
-        if (!e.visited) {
-          stack.push(e);
-          e.par = cur;
-        }
-      });
+    if(!next) current = current.par;
+    else current = next;
+    if(!current){
+      console.log("Done");
     }
     frameRate(1);
   }
