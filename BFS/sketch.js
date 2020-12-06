@@ -9,7 +9,7 @@ function setup() {
   createCanvas(1000, 1000)
   counter = 0;
   sel = undefined;
-  var button = createButton("Start DFS");
+  var button = createButton("Start BFS");
   var resetButton = createButton("Reset");
   current = undefined;
   start = false;
