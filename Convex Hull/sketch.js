@@ -5,15 +5,17 @@ var hull = [];
 var cur;
 var ind = 0;
 var slider;
+            
 function setup() {
 
-  createCanvas(1000, 1000)
+  var myCanvas = createCanvas(1000, 1000)
   var button = createButton("Start Convex Hull");
   createDiv("Speed")
-  slider = createSlider(1,30,10,1);
-  for (var i = 0; i < 10; i++) {
-    points.push(new Point(random(100, height - 100), random(100, width - 100)));
-  }
+  slider = createSlider(1,60,10,1);
+  createDiv("");
+  var reset = createButton("Reset");
+  var generateRandom = createButton("Generate Random Points");
+ 
   button.mousePressed(() => {
     if (points.length <= 2) {
       console.log("Add More Points");
@@ -30,6 +32,28 @@ function setup() {
     ind = 0;
     draw();
   });
+
+  myCanvas.mousePressed(()=>{
+    points.push(new Point(mouseX,mouseY));
+  });
+
+  reset.mousePressed(resetData);
+  generateRandom.mousePressed(()=>{
+    resetData();
+    for (var i = 0; i < 100; i++) {
+      points.push(new Point(random(100, height - 100), random(100, width - 100)));
+    }
+    draw();
+  });
+
+}
+function resetData(){
+  points = [];
+  p = q = null;
+  hull = [];
+  ind = null;
+  cur = null;
+  draw();
 }
 
 function draw() {
@@ -42,12 +66,10 @@ function draw() {
     vertex(p.x, p.y);
   }
   endShape(CLOSE);
-
+  loop();
   if (p == undefined) {
-    noLoop();
     return;
   }
-  // drawLine(points[q],points[q],color(255));
   
 
 
@@ -93,5 +115,5 @@ function draw() {
 
 
 // function mousePressed(){
-//   points.push(new Point(mouseX,mouseY));
+  // points.push(new Point(mouseX,mouseY));
 // }
