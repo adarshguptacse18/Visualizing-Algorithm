@@ -26,31 +26,21 @@ function setup() {
 }
 
 function draw() {
-  console.log(1);
-  // return;
   if (!start) {
-    // background(0);
-    // arr.forEach((e) => e.show());
     drawAll();
     return;
   }
   if (i == n) {
     console.log("Done");
     drawAll();
-    // background(0);
-    // arr.forEach((e) => e.show());
-
     noLoop();
     return;
   }
 
-  // drawPartingLine();
 
 
   if (j >= 0 && arr[j].current) {
     drawAll()
-    // background(0);
-    // arr.forEach((e) => e.show());
     arr[j].current = false;
     arr[j + 1].current = false;
     j--;
@@ -58,32 +48,18 @@ function draw() {
   }
 
   if (j < 0 || arr[j].v <= arr[j + 1].v) {
-    // arr[j + 1].swap = true;
-    // background(0);
-    // arr.forEach((e) => e.show());
-    // arr[j + 1].swap = false;
     i += 1;
     j = i - 1;
     return;
   }
   else {
-    // background(0);
     arr[j].current = true;
     arr[j + 1].current = true;
     drawAll()
-
-    // arr.forEach((e) => e.show());
-
     swap(j, j + 1);
   }
-
-  // arr[j].current = false;
-  // arr[j+1].current = false;
-
-
   frameRate(slider.value());
   loop();
-
 }
 
 function swap(x, y) {
