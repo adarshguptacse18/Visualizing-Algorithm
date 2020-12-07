@@ -43,40 +43,28 @@ function draw() {
   }
 
 
-  if (j >= 0 && arr[j].current) {
-
-    background(0);
-    arr.forEach((e) => e.show());
-    arr[j].current = false;
-    arr[j + 1].current = false;
-    j--;
-    return;
-  }
-
   if (j < 0 || arr[j].v <= arr[j + 1].v) {
-    // arr[j + 1].swap = true;
-    // background(0);
-    // arr.forEach((e) => e.show());
-    // arr[j + 1].swap = false;
+    if(j>=0){
+      arr[j].current = false;
+      arr[j+1].current = false;
+    }
     i += 1;
     j = i - 1;
     return;
   }
+
+  if (arr[j].current) {
+    arr[j].current = false;
+    arr[j + 1].current = false;
+    j--;
+  }
   else {
     background(0);
-
     arr[j].current = true;
     arr[j + 1].current = true;
-
     arr.forEach((e) => e.show());
-
     swap(j, j + 1);
   }
-
-  // arr[j].current = false;
-  // arr[j+1].current = false;
-
-
   frameRate(slider.value());
   loop();
 
