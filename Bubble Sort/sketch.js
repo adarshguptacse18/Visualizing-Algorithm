@@ -7,7 +7,7 @@ var j;
 var slider;
 var swapLine = -1;
 function setup() {
-  createCanvas(n * (w + 10) + 100, 1000);
+  createCanvas(n * (w + 10) + 100, 800);
   for (var k = 1; k <= n; k++) {
     arr.push(new Num(random(10,height / 4), k));
   }
@@ -42,7 +42,7 @@ function draw() {
   }
   arr[j].current = true;
   arr[j + 1].current = true;
-
+  swapLine  = arr[j].x;
 
   background(0);
   arr.forEach((e) => e.show());
@@ -51,14 +51,14 @@ function draw() {
   arr[j + 1].current = false;
   arr[j].swap = false;
   arr[j + 1].swap = false;
-  swapLine = -1;
+  // swapLine = -1;
   if (arr[j].v > arr[j + 1].v) {
     var t = arr[j].v;
     arr[j].update(arr[j + 1].v);
     arr[j + 1].update(t);
     arr[j].swap = true;
     arr[j + 1].swap = true;
-    swapLine = arr[j].x;
+    // swapLine = arr[j].x;
   }
   else
     j += 1;
@@ -75,7 +75,7 @@ function swap(x, y) {
 }
 
 function drawSwapLine() {
-  if (swapLine != -1 && slider.value() < 3) {
+  if (swapLine!=-1 && slider.value() < 3) {
     push();
     stroke(255);
     fill(255);
