@@ -49,7 +49,11 @@ function draw() {
   if (j == n) {
     swap(i,minInd);
     arr[minInd].min = false;
+    arr[i].swap = true;
+    arr[minInd].swap = true;
     drawAll();
+    arr[i].swap = false;
+    arr[minInd].swap = false;
     arr[i].included = true;
     i += 1;
     j = i;
