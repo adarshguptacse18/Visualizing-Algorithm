@@ -6,7 +6,8 @@ class Num {
         this. y = height / 3;
         this.current = false;
         this.min = false;
-        this.included = false;
+        this.included = false
+        this.swap = false;
     }
     show() {
 
@@ -21,6 +22,10 @@ class Num {
         }
         if(this.min){
             fill(0,255,0);
+        }
+        if(this.swap){
+            console.log(1);
+            fill(255,0,0);
         }
         rectMode(CORNERS);
         rect(this.x, this.y , this.x + w, this.y - this.v);
