@@ -29,24 +29,28 @@ function draw() {
   console.log(1);
   // return;
   if (!start) {
-    background(0);
-    arr.forEach((e) => e.show());
+    // background(0);
+    // arr.forEach((e) => e.show());
+    drawAll();
     return;
   }
   if (i == n) {
     console.log("Done");
-    background(0);
-    arr.forEach((e) => e.show());
+    drawAll();
+    // background(0);
+    // arr.forEach((e) => e.show());
 
     noLoop();
     return;
   }
 
+  // drawPartingLine();
+
 
   if (j >= 0 && arr[j].current) {
-
-    background(0);
-    arr.forEach((e) => e.show());
+    drawAll()
+    // background(0);
+    // arr.forEach((e) => e.show());
     arr[j].current = false;
     arr[j + 1].current = false;
     j--;
@@ -63,12 +67,12 @@ function draw() {
     return;
   }
   else {
-    background(0);
-
+    // background(0);
     arr[j].current = true;
     arr[j + 1].current = true;
+    drawAll()
 
-    arr.forEach((e) => e.show());
+    // arr.forEach((e) => e.show());
 
     swap(j, j + 1);
   }
@@ -88,3 +92,20 @@ function swap(x, y) {
   arr[y].v = t;
 }
 
+function drawAll() {
+  background(0);
+  arr.forEach((e) => e.show());
+  drawPartingLine();
+}
+
+function drawPartingLine() {
+  if (i == n && start == true)
+    return;
+  push();
+  stroke(255);
+  fill(255);
+  var x = (i + 2) * (w + 10) - 5;
+
+  line(x, 0, x, height / 3 + height / 6);
+  pop();
+}
