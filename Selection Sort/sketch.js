@@ -6,7 +6,7 @@ var i;
 var j;
 var slider;
 var swapLine = -1;
-var Key;
+var minInd;
 function setup() {
   createCanvas(n * (w + 10) + 100, 800);
   for (var k = 1; k <= n; k++) {
@@ -14,8 +14,9 @@ function setup() {
   }
   createButton("Start").mousePressed(() => {
     start = true
-    i = 1;
+    i = 0;
     j = 0;
+    minInd = i;
     swapLine = -1;
     draw();
   });
@@ -30,42 +31,43 @@ function draw() {
     drawAll();
     return;
   }
-  if (i == n) {
+  if (i == n - 1) {
     console.log("Done");
     drawAll();
     noLoop();
     return;
   }
 
-
-
-  if (j >= 0 && arr[j].current) {
+  // Showing current state for next iteration
+  if (j < n && arr[j].current) {
     drawAll()
     arr[j].current = false;
-    arr[j + 1].current = false;
-    j--;
+    j++;
     return;
   }
 
-  if (j < 0 || arr[j].v <= arr[j + 1].v) {
+  if (j == n) {
+    swap(i,minInd);
+    arr[minInd].min = false;
+    drawAll();
+    arr[i].included = true;
     i += 1;
-    j = i - 1;
+    j = i;
+    minInd = i;
+    arr[i].min = true;
     return;
   }
   else {
     arr[j].current = true;
-    arr[j + 1].current = true;
     drawAll()
-    swap(j, j + 1);
+    if (arr[j].v < arr[minInd].v) {
+      arr[minInd].min = false;
+      arr[j].min = true;
+      minInd = j;
+    }
   }
-
-  // arr[j].current = false;
-  // arr[j+1].current = false;
-
-
   frameRate(slider.value());
   loop();
-
 }
 
 function swap(x, y) {
@@ -81,12 +83,12 @@ function drawAll() {
 }
 
 function drawPartingLine() {
-  if (i == n && start == true)
+  if (i == n-1 || start == false)
     return;
   push();
   stroke(255);
   fill(255);
-  var x = (i + 2) * (w + 10) - 5;
+  var x = (i+1) * (w + 10) - 5;
 
   line(x, 0, x, height / 3 + height / 6);
   pop();
