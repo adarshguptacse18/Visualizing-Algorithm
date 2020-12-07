@@ -4,106 +4,90 @@ var counter = 0;
 var sel;
 var start;
 var current;
-var ind = 0;
+// var ind;
+var index;
 var INT_MAX = 1e18;
-var iter = 0;
+var queue = [];
 function setup() {
-  var button = createButton("Start Dijsktra");
-  // var resetButton = createButton("Reset");
-  // var table = select("table");
-  createCanvas(windowWidth - 100, windowHeight - 100);
-
-  // counter = 0;
-  // sel = undefined;
-
-  // current = undefined;
-  // start = false;
+  createCanvas(1000, 1000)
+  counter = 0;
+  sel = undefined;
+  var button = createButton("Start Dijkstra");
+  var resetButton = createButton("Reset");
+  current = undefined;
+  start = false;
   button.mousePressed(() => {
     if (vertices.length == 0 || start) return;
     start = true;
     current = vertices[0];
     current.dist = 0;
-    ind = 0;
+    index = 0;
+    queue = [vertices[0]];
+    // current = vertices[0];
   });
 
-  // resetButton.mousePressed(() => {
-  //   start = false;
-  //   vertices = [];
-  //   sel = undefined;
-  //   current = undefined;
-  //   counter = 0;
-  // });
+  resetButton.mousePressed(() => {
+    console.log("Not Implemented")
+  });
 }
 
 function draw() {
+  var cur;
   if (start) {
-    if (!current) {
-      return;
+    for (var i = queue.length - 1; i >= 0; i--) {
+      if (queue[i].visited) {
+        queue.splice(i, 1);
+      }
     }
-    iter += 1;
-    if (iter == 3) {
-      console.log(current.adj[ind]);
-      noLoop();
-      return;
-    }
-    current.visited = true;
-    current.selected = true;
-    if (ind != current.adj.length) {
-      if (current.adj[ind].visited) {
-        ind += 1;
-        return;
-      }
-      console.log(iter, current.adj[ind], current, ind);
-
-      if (current.adj[ind].selected) {
-
-        current.adj[ind].selected = false;
-        if (current.adj[ind].change == false) {
-          // console.log(current.dist + current.weight[ind],vertices[ind].dist)
-          if (current.dist + current.weight[ind] < current.adj[ind].dist) {
-            // console.log(11111111111);
-            // console.log(ind);
-            current.adj[ind].dist = current.dist + current.weight[ind];
-            current.adj[ind].change = true;
-          }
-          else ind += 1;
-        }
-        else {
-          current.adj[ind].change = false;
-          ind += 1;
-        }
-      }
-      else {
-        current.adj[ind].selected = true;
-        console.log("selecting",current.adj[ind]);
-
-      }
+    if (queue.length == 0) return;
+    if (!current || index == current.adj.length) {
+      if (current) current.selected = false;
+      current = cur = findMin();
+      cur.visited = true;
+      cur.selected = true;
+      index = 0;
     }
     else {
-      noLoop();
-
-      // current.selected = false;
-      // var nextInd = findMin();
-      // if (nextInd == undefined) {
-      //   console.log("Done");
-      //   current = undefined;
-      //   // start = false;
-      //   // noLoop();
-      // }
-      // var next = vertices[nextInd];
-      // current = next;
+      cur = current;
+      for (; index < current.adj.length; index++) {
+        var e = cur.adj[index];
+        if (e.visited) continue;
+        if (e.dist > cur.dist + cur.weight[index]) {
+          if (e.selected == false) {
+            e.selected = true;
+          }
+          else if (e.change == false) {
+            e.change = true;
+            e.selected = false;
+          }
+          else {
+            for (var v = 0; v < queue.length; v++) {
+              if (queue[v] == e) {
+                queue.splice(v, 1);
+              }
+            }
+            e.dist = cur.dist + cur.weight[index];
+            e.change = false;
+          }
+          // queue.push(e);
+          break;
+        }
+      }
     }
+
+
     frameRate(1);
   }
   else frameRate(30);
-  background(0);
-
-  vertices.forEach((e) => e.show());
-
-  if (current) { current.selected = false; }
+  drawAll();
+  if (cur) { cur.selected = false; }
 
 }
 
+function drawAll() {
+  background(0);
+  vertices.forEach((e) => e.show());
+}
 function intersect(x, y) {
   for (var i = 0; i < vertices.length; i++) {
     if (dist(vertices[i].pos.x, vertices[i].pos.y, x, y) + 30 <= vertices[i].r * 2) {
@@ -135,8 +119,9 @@ function intersect(x, y) {
   return false;
 }
 function mousePressed() {
+  console.log(mouseX, mouseY);
   if (intersect(mouseX, mouseY)) {
-    console.log("Already Present");
+    console.log(true);
     return;
   };
   console.log(false);
@@ -148,11 +133,13 @@ function mousePressed() {
 function findMin() {
   var MIN = INT_MAX;
   var ind = undefined;
-  for (var v = 0; v < vertices.length; v++) {
-    if (vertices[v].visited == false && vertices[v].dist < MIN) {
-      MIN = vertices[v].dist;
+  for (var v = 0; v < queue.length; v++) {
+    if (queue[v].visited == false && queue[v].dist < MIN) {
+      MIN = queue[v].dist;
       ind = v;
     }
   }
-  return ind;
+  var res = queue[ind];
+  queue.splice(ind, 1);
+  return res;
 }

@@ -5,30 +5,35 @@ class Vertex {
         this.pos = createVector(x, y);
         this.visited = false;
         this.complete = false;
-        this.open = false;
         this.r = 50;
         this.selected = false;
         this.adj = [];
         this.weight = [];
         this.par = undefined;
         this.dist = INT_MAX; //inf
-        this.change = false;
+        this.changed = false;
+    }
+    changeToFalse(){
+        this.changed = false;
     }
 
     show() {
+        push();
         // noStroke();
         stroke(255);
         strokeWeight(2);
-        fill(0, 0);
+        fill(0);
 
-        if (this.visited) {
-            fill(100, 0, 0);
-        }
+      
         if (this.selected) {
             fill(100, 0, 100);
         }
-        if (this.open) {
+        if (this.changed) {
             fill(0, 255, 0);
+        }
+
+        if (this.visited) {
+            fill(100, 0, 0);
         }
 
         circle(this.pos.x, this.pos.y, this.r);
@@ -73,7 +78,8 @@ class Vertex {
             ind += 1;
             // return tempV;
             // line(this.pos.x,this.pos,y,e.pos.x,e.pos.y);
-        })
+        });
+        pop();
     }
 
 

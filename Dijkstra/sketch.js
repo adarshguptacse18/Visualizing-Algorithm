@@ -4,7 +4,8 @@ var counter = 0;
 var sel;
 var start;
 var current;
-var ind;
+// var ind;
+var index;
 var INT_MAX = 1e18;
 var queue = [];
 function setup() {
@@ -18,9 +19,9 @@ function setup() {
   button.mousePressed(() => {
     if (vertices.length == 0 || start) return;
     start = true;
-    current = vertices[0];
-    current.dist = 0;
-    ind = 0;
+    current = undefined
+    vertices[0].dist = 0;
+    index = 0;
     queue = [vertices[0]];
     // current = vertices[0];
   });
@@ -38,24 +39,46 @@ function draw() {
         queue.splice(i, 1);
       }
     }
-    if (queue.length == 0) return;
-    cur = findMin();
-    cur.visited = true;
-    cur.selected = true;
-    cur.open = false;
-    for (var index = 0; index<cur.adj.length; index++) {
-      var e = cur.adj[index];
-      if (e.dist > cur.dist + cur.weight[index] && !e.visited) {
-        console.log(e);
-        for (var v = 0; v < queue.length; v++) {
-          if (queue[v] == e) {
-            queue.splice(v, 1); 
+    if (!current || index == current.adj.length) {
+      if (current) current.selected = false;
+      if (queue.length == 0) {
+        return;
+      }
+      current = cur = findMin();
+      cur.visited = true;
+      cur.selected = true;
+      index = 0;
+    }
+    else {
+      cur = current;
+      for (; index < current.adj.length; index++) {
+        var e = cur.adj[index];
+        if (e.visited) continue;
+        if (e.dist > cur.dist + cur.weight[index] || e.changed) {
+        console.log(e.changed, e);
+          
+          if (e.selected == false) {
+            e.selected = true;
           }
+          else if (e.changed == false) {
+            for (var v = 0; v < queue.length; v++) {
+              if (queue[v] == e) {
+                queue.splice(v, 1);
+              }
+            }
+            e.dist = cur.dist + cur.weight[index];
+            queue.push(e);
+            e.changed = true;
+            e.selected = false;
+          }
+          else {
+
+            e.changeToFalse();
+            e.selected = false;
+            index+=1; 
+          }
+          break;
         }
-        e.dist = cur.dist + cur.weight[index];
-        
-        queue.push(e);
-        // e.open = true;
       }
     }
 
