@@ -16,6 +16,9 @@ class Num {
         }
         if(this.swap){
 
+            fill(0,0,255);
+        }
+        if(this.sorted){
             fill(0,255,0);
         }
         rectMode(CORNERS);

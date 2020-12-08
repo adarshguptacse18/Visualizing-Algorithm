@@ -36,6 +36,7 @@ function draw() {
     return;
   }
   if (j == n - i - 1) {
+    arr[j].sorted = true;
     i += 1;
     j = 0;
     return;
