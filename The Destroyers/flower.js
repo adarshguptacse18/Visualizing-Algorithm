@@ -8,12 +8,15 @@ class Flower {
         this.ydir = 0;
     }
     show() {
-        fill(255,0,200);
+        fill(255,200,0);
         ellipse(this.x,this.y,this.r*2,this.r*2);
     }
 
-    grow(){
-        this.r+=2;
+    shrink(){
+        this.r-=2;
+        if(this.r<15){
+            this.r = 0;
+        }
     }
 
     move() {

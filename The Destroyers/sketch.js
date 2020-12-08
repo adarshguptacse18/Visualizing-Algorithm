@@ -23,7 +23,7 @@ function draw() {
 
         for(var j=0;j<flowers.length;j++){
             if(drops[i].hits(flowers[j])){
-                flowers[j].grow();
+                flowers[j].shrink();
                 drops[i].evaporate();
             }
         }
