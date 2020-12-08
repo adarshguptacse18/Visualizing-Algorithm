@@ -9,11 +9,15 @@ var index;
 var INT_MAX = 1e18;
 var queue = [];
 function setup() {
-  createCanvas(1000, 1000)
+  createCanvas(1000, 1000).parent("canvas");
   counter = 0;
   sel = undefined;
   var button = createButton("Start Dijkstra");
-  var resetButton = createButton("Reset");
+  button.parent("buttonsBeforeCanvas");
+  button.class("btn btn-success");
+  var reset = createButton("Reset");
+  reset.parent("buttonsBeforeCanvas");
+  reset.class("btn btn-danger");
   current = undefined;
   start = false;
   button.mousePressed(() => {
@@ -26,7 +30,7 @@ function setup() {
     // current = vertices[0];
   });
 
-  resetButton.mousePressed(() => {
+  reset.mousePressed(() => {
     console.log("Not Implemented")
   });
 }
@@ -55,8 +59,8 @@ function draw() {
         var e = cur.adj[index];
         if (e.visited) continue;
         if (e.dist > cur.dist + cur.weight[index] || e.changed) {
-        console.log(e.changed, e);
-          
+          console.log(e.changed, e);
+
           if (e.selected == false) {
             e.selected = true;
           }
@@ -75,7 +79,7 @@ function draw() {
 
             e.changeToFalse();
             e.selected = false;
-            index+=1; 
+            index += 1;
           }
           break;
         }

@@ -2,9 +2,12 @@ var slider;
 var angle = 0;
 
 function setup() {
-    createCanvas(800, 800);
+    createCanvas(800, 800).parent("canvas");;
+    // var text = createP("<b>Val</b>");
+    // text.parent("buttonsBeforeCanvas");
+    // text.style( "font-family","Times New Roman")
     slider = createSlider(0, TWO_PI, PI / 4, 0.01);
-
+    slider.parent("buttonsBeforeCanvas");
 }
 
 function draw() {

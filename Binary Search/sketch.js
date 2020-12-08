@@ -9,8 +9,10 @@ var check = 0;
 // let inp;
 
 function setup() {
-  createCanvas(1000, 1000);
+  createCanvas(1000, 1000).parent("canvas");
   startButton = createButton("Start");
+  startButton.parent("buttonsBeforeCanvas");
+  startButton.class("btn btn-success");
   startButton.mousePressed(() => start = true);
   n = 16;
   l = 0;
@@ -38,17 +40,21 @@ function createDescription() {
   rect(width / 2 - 20, 75, 50, 50);
   fill(255)
   text(check, width / 2, 100);
-  createDesBox(createVector(50, height / 3), color(255, 0, 0), ": Element can't be present here");
-  createDesBox(createVector(50, height / 3 + 70), color(0, 255, 0), ": Element found at this index");
-  createDesBox(createVector(50, height / 3 + 140), color(0, 0, 255), ": Our Search Space");
-  createDesBox(createVector(50, height / 3 + 210), color(100, 0, 100), ": Current Element");
+  createDesBox(createVector(50, height / 3), color(255, 0, 0), ":   Element can't be present here");
+  createDesBox(createVector(50, height / 3 + 70), color(0, 255, 0), ":   Element found at this index");
+  createDesBox(createVector(50, height / 3 + 140), color(0, 0, 255), ":   Our Search Space");
+  createDesBox(createVector(50, height / 3 + 210), color(100, 0, 100), ":   Current Element");
 }
 
-function createDesBox(pos, color, text) {
+function createDesBox(pos, color, str) {
   fill(color);
-  rect(pos.x, pos.y, 40, 40);
-  var ele = createElement('h3', text);
-  ele.position(pos.x + 70, pos.y);
+  var r = rect(pos.x, pos.y, 40, 40);
+  fill(0);
+  textStyle(BOLD);
+  textAlign("Center");
+  text(str, pos.x + 70, pos.y + 20);
+  // var ele = createElement('h3', text);
+  // ele.position(pos.x + 70, pos.y);
 }
 
 
@@ -63,7 +69,7 @@ function draw() {
     noLoop();
     return;
   }
-  
+
   if (start == false) return;
   var mid = floor((l + r) / 2);
   arr[mid].current = true;

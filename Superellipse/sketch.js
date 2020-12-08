@@ -2,8 +2,12 @@ let slider;
 
 
 function setup() {
-    createCanvas(600, 600);
+    createCanvas(600, 600).parent("canvas");
+    var label = createDiv("<b>Value of n</b>");
+    label.parent("buttonsBeforeCanvas");
+    label.style("")
     slider = createSlider(0.01, 10, 2, 0.01);
+    slider.parent("buttonsBeforeCanvas");
 }
 
 function draw() {
