@@ -59,7 +59,7 @@ function init() {
       grid[i][j] = new Spot(i, j);
     }
   }
-
+  3002
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
       grid[i][j].addNeighbors(grid);
@@ -81,7 +81,7 @@ function draw() {
 
       var winner = 0;
       for (var i = 0; i < openSet.length; i++) {
-        if (openSet[i].f < openSet[winner].f) {
+        if (openSet[i].f < openSet[winner].g+1) {
           winner = i;
         }
       }
@@ -101,7 +101,7 @@ function draw() {
         var neighbor = neighbors[i];
 
         if (!closedSet.includes(neighbor) && !neighbor.wall) {
-          var tempG = current.g + heuristic(neighbor, current);
+          var tempG = current.g + 1;
 
           var newPath = false;
           if (openSet.includes(neighbor)) {
