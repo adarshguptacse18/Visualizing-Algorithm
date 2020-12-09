@@ -1,28 +1,29 @@
-function Spot(i, j) {
+class Spot {
+  constructor(i, j) {
 
     // Location
     this.i = i;
     this.j = j;
-  
+
     // f, g, and h values for A*
     this.f = 0;
     this.g = 0;
     this.h = 0;
-  
+
     // Neighbors
     this.neighbors = [];
-  
+
     // Where did I come from?
     this.previous = undefined;
-  
+
     // Am I a wall?
     this.wall = false;
     if (random(1) < 0.4) {
       this.wall = true;
     }
-  
+
     // Display me
-    this.show = function(col) {
+    this.show = function (col) {
       if (this.wall) {
         fill(0);
         noStroke();
@@ -31,10 +32,10 @@ function Spot(i, j) {
         fill(col);
         rect(this.i * w, this.j * h, w, h);
       }
-    }
-  
+    };
+
     // Figure out who my neighbors are
-    this.addNeighbors = function(grid) {
+    this.addNeighbors = function (grid) {
       var i = this.i;
       var j = this.j;
       if (i < cols - 1) {
@@ -61,5 +62,6 @@ function Spot(i, j) {
       if (i < cols - 1 && j < rows - 1) {
         this.neighbors.push(grid[i + 1][j + 1]);
       }
-    }
+    };
   }
+}

@@ -7,11 +7,14 @@ var j;
 var slider;
 var swapLine = -1;
 function setup() {
-  createCanvas(n * (w + 10) + 100, 800);
+  createCanvas(n * (w + 10) + 100, 800).parent("canvas");;
   for (var k = 1; k <= n; k++) {
-    arr.push(new Num(random(10,height / 4), k));
+    arr.push(new Num(random(10, height / 4), k));
   }
-  createButton("Start").mousePressed(() => {
+  var button = createButton("Start");
+  button.parent("buttonsBeforeCanvas");
+  button.class("btn btn-success");
+  button.mousePressed(() => {
     start = true
     i = 0;
     j = 0;
@@ -19,9 +22,17 @@ function setup() {
     draw();
   });
 
+  // createDiv("").parent("buttonsBeforeCanvas");
+  var tempDiv = createDiv("Speed");
+  tempDiv.style("margin-left", "10px");
+  // tempDiv.style("margin-left","10px");
 
-  createDiv("Speed");
+  tempDiv.parent("buttonsBeforeCanvas");
+  tempDiv.class("btn btn-outline-primary");
+
   slider = createSlider(1, 100, 1, 1);
+  slider.parent(tempDiv);
+  slider.style("margin-left", "10px");
 }
 
 function draw() {
@@ -43,7 +54,7 @@ function draw() {
   }
   arr[j].current = true;
   arr[j + 1].current = true;
-  swapLine  = arr[j].x;
+  swapLine = arr[j].x;
 
   background(0);
   arr.forEach((e) => e.show());
@@ -76,13 +87,13 @@ function swap(x, y) {
 }
 
 function drawSwapLine() {
-  if (swapLine!=-1 && slider.value() < 3) {
+  if (swapLine != -1 && slider.value() < 3) {
     push();
     stroke(255);
     fill(255);
-    line(swapLine + w/2, height / 3 + w / 2, swapLine + w/2, height / 3 + w );
-    line(swapLine + w/2, height / 3 + w ,swapLine + w/2 + w, height / 3 + w );
-    line(swapLine + w/2 + w, height / 3 + w ,swapLine + w/2 + w, height / 3 + w / 2);
+    line(swapLine + w / 2, height / 3 + w / 2, swapLine + w / 2, height / 3 + w);
+    line(swapLine + w / 2, height / 3 + w, swapLine + w / 2 + w, height / 3 + w);
+    line(swapLine + w / 2 + w, height / 3 + w, swapLine + w / 2 + w, height / 3 + w / 2);
 
 
     pop();

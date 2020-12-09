@@ -4,7 +4,7 @@ var flowers = [];
 var drops = [];
 var n;
 function setup() {
-    createCanvas(600,400);
+    createCanvas(600,400).parent("canvas");
     ship = new Ship();
     n=6;
     for(var i=0;i<n;i++){
