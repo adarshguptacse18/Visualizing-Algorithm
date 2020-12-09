@@ -6,11 +6,15 @@ var start;
 var queue = [];
 var current;
 function setup() {
-  createCanvas(1000, 1000)
+  createCanvas(1000, 1000).parent("canvas");
   counter = 0;
   sel = undefined;
   var button = createButton("Start BFS");
   var resetButton = createButton("Reset");
+  button.parent("buttonsBeforeCanvas");
+  button.addClass("btn btn-success");
+  resetButton.parent("buttonsBeforeCanvas");
+  resetButton.addClass("btn btn-danger");
   current = undefined;
   start = false;
   button.mousePressed(() => {

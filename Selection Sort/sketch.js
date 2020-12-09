@@ -8,11 +8,14 @@ var slider;
 var swapLine = -1;
 var minInd;
 function setup() {
-  createCanvas(n * (w + 10) + 100, 800);
+  createCanvas(n * (w + 10) + 100, 800).parent("canvas");;
   for (var k = 1; k <= n; k++) {
     arr.push(new Num(random(10, height / 4), k));
   }
-  createButton("Start").mousePressed(() => {
+  var button = createButton("Start");
+  button.parent("buttonsBeforeCanvas");
+  button.class("btn btn-success");
+  button.mousePressed(() => {
     start = true
     i = 0;
     j = 0;
@@ -22,8 +25,9 @@ function setup() {
   });
 
 
-  createDiv("Speed");
+  createDiv("Speed").parent("buttonsBeforeCanvas");;
   slider = createSlider(1, 100, 60, 1);
+  slider.parent("buttonsBeforeCanvas");
 }
 
 function draw() {
@@ -47,7 +51,7 @@ function draw() {
   }
 
   if (j == n) {
-    swap(i,minInd);
+    swap(i, minInd);
     arr[minInd].min = false;
     arr[i].swap = true;
     arr[minInd].swap = true;
@@ -87,12 +91,12 @@ function drawAll() {
 }
 
 function drawPartingLine() {
-  if (i == n-1 || start == false)
+  if (i == n - 1 || start == false)
     return;
   push();
   stroke(255);
   fill(255);
-  var x = (i+1) * (w + 10) - 5;
+  var x = (i + 1) * (w + 10) - 5;
 
   line(x, 0, x, height / 3 + height / 6);
   pop();

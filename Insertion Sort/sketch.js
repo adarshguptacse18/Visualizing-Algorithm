@@ -8,11 +8,15 @@ var slider;
 var swapLine = -1;
 var Key;
 function setup() {
-  createCanvas(n * (w + 10) + 100, 800);
+  createCanvas(n * (w + 10) + 100, 800).parent("canvas");
   for (var k = 1; k <= n; k++) {
     arr.push(new Num(random(10, height / 4), k));
   }
-  createButton("Start").mousePressed(() => {
+
+  var button = createButton("Start");
+  button.parent("buttonsBeforeCanvas");
+  button.class("btn btn-success");
+  button.mousePressed(() => {
     start = true
     i = 1;
     j = 0;
@@ -21,8 +25,9 @@ function setup() {
   });
 
 
-  createDiv("Speed");
+  createDiv("Speed").parent("buttonsBeforeCanvas");
   slider = createSlider(1, 100, 60, 1);
+  slider.parent("buttonsBeforeCanvas");
 }
 
 function draw() {
