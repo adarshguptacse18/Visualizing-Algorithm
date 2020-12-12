@@ -70,37 +70,19 @@
 
 
 
-    <div class="bg-light">
-        <div class="container py-5">
-            <div class="row h-100 align-items-center py-5">
-                <div class="col-lg-6">
-                    <h1 class="display-4">Adarsh Gupta</h1>
-                    <p class="lead text-muted mb-0">Hey, I'm Adarsh Gupta, CSE 3rd year. I'm a master on Codeforces and
-                        6 <span class="fa fa-star checked"></span> coder on Codechef. I have developed this website for
-                        better algorithms Visualization. I would
-                        like to thanks CP-Algorithms, Codeforces, GFG, Coding Train and Codechef for providing some
-                        amazing resources to learn coding and visualize these algorithms.</p>
-                    <div class="lead text-muted">Code: <a
-                            href="https://github.com/adarshguptacse18/Visualizing-Algorithm" class="text-muted">
-                            <u style="color:black;">GitHub<i class="fa fa-github"></i>
-                            </u></a>
-                    </div>
-
-                    <div class="lead text-muted">Codeforces: <a href="https://codeforces.com/profile/Cyber_Wizard"
-                            class="text-muted">
-                            <u style="color:#F59B00;">Cyber_Wizard</u></a>
-                    </div>
-                    <div class="lead text-muted">Codechef: <a href="https://www.codechef.com/users/gupta_adarsh"
-                            class="text-muted">
-                            <u style="color:#F59B00;"><b>gupta_adarsh</b></u></a>
-                    </div>
-                </div>
-                <div class="col-lg-6 d-none d-lg-block"><img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCyfds6RtQdMFQEW87GdQy_-aFKFbxhFNNAA&usqp=CAU"
-                        alt="" class="img-fluid"></div>
-            </div>
+    <div class="content main">
+        <form action="#" method="POST"></form>
+        <div class="search">
+            <input type="text" name="name" id="name" placeholder="Your Name">
+            <input type="text" name="email" id="email" placeholder="Email Id">
+            <input type="text" name="message" id="message" placeholder="A valuable message for us :)">
+            <button id="sendBtn"><a href="#">Send</a></button>
         </div>
+        </form>
     </div>
+    <div class="buffer"></div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -114,9 +96,10 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="/__/firebase/8.1.2/firebase-app.js"></script>
 
-
     <script src="/__/firebase/8.1.2/firebase-analytics.js"></script>
+    <script src="/__/firebase/8.1.2/firebase-firestore.js"></script>
     <script src="/__/firebase/init.js"></script>
+
     <script>
         window.onload = function () {
             firebase.analytics();
@@ -133,6 +116,10 @@
 
         gtag('config', 'G-SXCLNJJ6TP');
     </script>
+
+    <!-- contacUs.js should be loaded after firebase scripts -->
+    <script type="text/javascript" defer src="contactUs.js"></script>
+
 </body>
 
 </html>
