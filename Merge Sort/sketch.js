@@ -3,6 +3,7 @@ const w = 60;
 const n = 8;
 var arr = [];
 var slider;
+var start = false;
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -10,8 +11,11 @@ function sleep(ms) {
 function setup() {
     createCanvas(1000, 1000).parent("canvas");
     var tempDiv = createDiv("Speed");
+    var startButton = createButton("Start");
+    startButton.parent("buttonsBeforeCanvas");
+    startButton.class("btn btn-success");
+    startButton.mousePressed(() => start = true);
     tempDiv.style("margin-left", "10px");
-
     tempDiv.parent("buttonsBeforeCanvas");
     tempDiv.class("btn btn-outline-primary");
 
@@ -38,7 +42,13 @@ function setup() {
 }
 
 function draw() {
-
+    var totalSize = arr.length * (w + 1);
+    var left = floor((width - 0 - totalSize) / 2);
+    for (var i = 0; i < arr.length; i++) {
+        arr[i].x = start + left + i * (w + 1);
+    }
+    arr.forEach((e) => e.show());
+    if(!start) return;
     push();
     mergeSort2(0, width, arr).then((e) => {
         pop();
@@ -53,7 +63,6 @@ function draw() {
 }
 async function mergeSort2(start, end, array) {
     var t;
-    console.log(array);
     var totalSize = array.length * (w + 1);
     var left = floor((end - start - totalSize) / 2);
     for (var i = 0; i < array.length; i++) {
@@ -63,7 +72,6 @@ async function mergeSort2(start, end, array) {
     await sleep(10);
 
     if (array.length == 1) {
-        console.log(array[0].y);
         return new Promise((e, b) => { e(array); });
     }
 
@@ -100,7 +108,6 @@ async function mergeSort2(start, end, array) {
     return new Promise((e, b) => { e(array); });
 }
 async function mergeSort(start, end, array) {
-    console.log(array);
     var totalSize = array.length * (w + 1);
     var left = floor((end - start - totalSize) / 2);
     for (var i = 0; i < array.length; i++) {
